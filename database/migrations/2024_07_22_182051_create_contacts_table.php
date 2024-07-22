@@ -15,6 +15,7 @@ return new class extends Migration
             $table->ulid('id');
             $table->string('username');
             $table->string('email')->unique();
+            $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });
     }

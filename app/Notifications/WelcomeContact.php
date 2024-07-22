@@ -2,21 +2,34 @@
 
 namespace App\Notifications;
 
+use App\Mail\WelcomeContactMail;
+use App\Models\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeContact extends Notification
+class WelcomeContact extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    protected $username;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(string $username)
     {
-        //
+        $this->username = $username;
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        return !$notifiable->notificationHistory()->where('notification', self::class)->exists();
     }
 
     /**
@@ -32,12 +45,10 @@ class WelcomeContact extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable): Mailable
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new WelcomeContactMail($this->username))
+            ->to($notifiable->email);
     }
 
     /**
