@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/contacts/upload', [ContactController::class, 'importContacts'])->name('contacts.upload');
 Route::resource('contacts', ContactController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

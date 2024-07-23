@@ -21,7 +21,7 @@ class WelcomeContactMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(string $username)
-    {\Log::info('xxx');
+    {
         $this->username = $username;
     }
 

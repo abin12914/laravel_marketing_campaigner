@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notification_history', function (Blueprint $table) {
-            $table->uuid();
-            $table->foreignUlid('contact_id');
+            $table->uuid('id');
+            $table->foreignUuid('contact_id');
             $table->string('notification');
             $table->string('channel');
             $table->timestamps();

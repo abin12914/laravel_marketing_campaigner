@@ -2,13 +2,14 @@
 
 namespace App\Notifications;
 
-use App\Mail\WelcomeContactMail;
 use App\Models\Contact;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Notifications\Messages\MailMessage;
+use App\Mail\WelcomeContactMail;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class WelcomeContact extends Notification implements ShouldQueue
 {
@@ -47,8 +48,15 @@ class WelcomeContact extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): Mailable
     {
-        return (new WelcomeContactMail($this->username))
+        $mailable = (new WelcomeContactMail($this->username))
             ->to($notifiable->email);
+        $notifiable->notificationHistory()->create([
+            'id' => (string) Str::orderedUuid(),
+            'contact_id' => $notifiable->id,
+            'notification' => self::class,
+            'channel' => 'mail',
+        ]);
+        return $mailable;
     }
 
     /**

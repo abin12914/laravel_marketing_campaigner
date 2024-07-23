@@ -17,7 +17,18 @@
             />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Add Contact') }}</x-primary-button>
-        </form>
+        </form><br>
+        <form method="POST" action="{{ route('contacts.upload') }}" enctype='multipart/form-data'>
+            @csrf
+            <input type="file" name="contacts_file"/>
+            <x-input-error :messages="$errors->get('contacts_file')" class="mt-2" />
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Upload File') }}
+            </button>
+            <!-- <x-dropdown-link onclick="event.preventDefault(); this.closest('form').submit();">
+                
+            </x-dropdown-link> -->
+        </form><br>
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
             @foreach ($contacts as $contact)
                 <div class="p-6 flex space-x-2 mt-2">
@@ -26,6 +37,9 @@
                             <div>
                                 <span class="text-gray-800">{{ $contact->username }}</span>
                                 <small class="ml-2 text-sm text-gray-600 text-red-400">{{ $contact->email }}</small>
+                                <small class="ml-2 text-sm text-gray-600 text-green-400">
+                                    {{ $contact->notification_history_count > 0 ? 'Notified' : '' }}
+                                </small>
                             </div>
                             <x-dropdown>
                                     <x-slot name="trigger">
@@ -54,5 +68,6 @@
                 </div>
             @endforeach
         </div>
+        {{ $contacts->links() }}
     </div>
 </x-app-layout>

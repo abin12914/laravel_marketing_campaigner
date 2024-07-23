@@ -22,8 +22,6 @@ class ContactCreated
      */
     public function __construct(Contact $contact)
     {
-        \Log::info('tttttttttttttttttttttt');
-        \Log::info($contact);
         $this->contact = $contact;
     }
 

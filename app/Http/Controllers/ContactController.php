@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Imports\ContactsImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Query\Builder;
 use App\Http\Requests\StoreContactRequest;
@@ -18,7 +20,7 @@ class ContactController extends Controller
     {
         $contacts = Contact::when((!empty($request->search)), function (Builder $query, $request) {
             $query->where('username', 'LIKE', $request->search);
-        })->paginate($request->limit ?? 10);
+        })->withCount('notificationHistory')->paginate($request->limit ?? 10);
         return view('contacts.index', compact('contacts'));
     }
 
@@ -63,4 +65,19 @@ class ContactController extends Controller
         $contact->delete();
         return redirect(route('contacts.index'));
     }
+
+    /**
+     * Import the contacts excel sheet to db.
+     */
+    public function importContacts(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'contacts_file' => 'required|file|extensions:xlsx',
+        ]);
+        Excel::import(new ContactsImport, $request->file('contacts_file'), null, \Maatwebsite\Excel\Excel::XLSX);
+        
+        return redirect(route('contacts.index'))->with('success', 'All good!');
+    }
+
+    
 }

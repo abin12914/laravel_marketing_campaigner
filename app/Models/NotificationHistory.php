@@ -12,6 +12,7 @@ class NotificationHistory extends Model
     use HasFactory, HasUuids;
     
     protected $fillable = [
+        'id',
         'contact_id',
         'notification',
         'channel',
