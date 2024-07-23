@@ -4,16 +4,16 @@ Bulk contact importing and email campaigning app built with Laravel
 
 ## Features
 
-User can import contacts from Excel file
-Duplicate records won't be saved
-Can send personalized emails
-Can integrate other notifiation channels like sms very easily(Not integrated now)
-History of notification
-contact CRUD operations
+- User can import contacts from Excel file
+- Duplicate records won't be saved
+- Can send personalized emails
+- Can integrate other notifiation channels like sms very easily(Not integrated now)
+- History of notification
+- contact CRUD operations
 
 ## Points To Note
 
-This project uses Laravel Sail(A light-weight command-line interface for interacting with Laravel's default Docker development environment).
+This project can be easily setup and deploy using Laravel Sail, A light-weight command-line interface for interacting with Laravel's default Docker development environment.
 
 Bundled Docker Apps : Laravel, mysql, redis, meilisearch, mailpit, and selenium 
 
