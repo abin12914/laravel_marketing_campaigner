@@ -35,8 +35,8 @@
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
                             <div>
-                                <span class="text-gray-800">{{ $contact->username }}</span>
-                                <small class="ml-2 text-sm text-gray-600 text-red-400">{{ $contact->email }}</small>
+                                <span class="text-gray-800">{{ $contact->username }}</span>&ensp;&ensp;&ensp;
+                                <small class="ml-2 text-sm text-gray-600 text-red-400">{{ $contact->email }}</small>&ensp;&ensp;&ensp;
                                 <small class="ml-2 text-sm text-gray-600 text-green-400">
                                     {{ $contact->notification_history_count > 0 ? 'Notified' : '' }}
                                 </small>
