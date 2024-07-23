@@ -19,14 +19,18 @@ Bundled Docker Apps : Laravel, mysql, redis, meilisearch, mailpit, and selenium
 
 # How to run?
  
-    1. Copy `.env.example` to `.env`
+    1. Copy .env.example to .env
     2. Modify your .env file with the required environment variables in order to connect to the Docker services:
-    3. Run the command `php artisan sail:install`
-    4. Run the command `./vendor/bin/sail up` (For sail documentation visit : https://laravel.com/docs/11.x/sail)
-    5. Run the command ./vendor/bin/sail artisan migrate` on new terminal
-    6. Run the command ./vendor/bin/sail artisan db:seed`
-    7. Keep the command `npm run dev` running
-    8. Run the command `./vendor/bin/sail artisan queue:work` on another terminal
+    3. Run the command php artisan sail:install
+    4. Run the command ./vendor/bin/sail up (For sail documentation visit : https://laravel.com/docs/11.x/sail)
+    5. Run the command ./vendor/bin/sail artisan migrate on new terminal
+    6. Run the command ./vendor/bin/sail artisan db:seed
+    7. Keep the command npm run dev running
+    8. Run the command ./vendor/bin/sail artisan queue:work on another terminal
 
-    As per provided `.env.example` configuration Laravel application will be available at http://localhost:3001/
+    As per provided .env.example configuration Laravel application will be available at http://localhost:3001/
     mailpit will be available at http://localhost:8025/
+
+# To-do
+
+Write tests
